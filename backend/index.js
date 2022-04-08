@@ -16,11 +16,13 @@ const pool = require('./db'); //Import from db.js
 // SETUP APP
 //////////////////////////////////////////////////////
 app.use(cors());
+
+// REQUIRED TO READ POST>BODY if using "raw" > "JSON"
 app.use(express.json());
 
-// REQUIRED TO READ POST>BODY
+// REQUIRED TO READ POST>BODY if using "x-www-form-urlencoded"
 // If not req.body is empty
-app.use(express.urlencoded({ extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 //////////////////////////////////////////////////////
 // POST GET METHODS
@@ -49,25 +51,15 @@ const CREATE_TABLE_SQL = `
     );
 `;
 
-app.get('/api/create_table', async (req, res, next) => {
+app.post('/api/table', async (req, res, next) => {
     
-    try
-    {
-        pool.query(CREATE_TABLE_SQL)
-        .then(() => {
-            res.send(`Table created`);
-        })
-        .catch((error) => {
-            res.send(error);
-        })
-        .finally(() => {
-            pool.end;
-        });
-    }
-    catch(err)
-    {
-        console.error(err.message);
-    }
+    pool.query(CREATE_TABLE_SQL)
+    .then(() => {
+         res.send(`Table created`);
+    })
+    .catch((error) => {
+        res.send(error);
+    });
 });
 
 //////////////////////////////////////////////////////
@@ -77,25 +69,15 @@ const DROP_TABLE_SQL = `
     DROP TABLE IF EXISTS messages;
 `;
 
-app.get('/api/drop_table', async (req, res, next) => {
+app.delete('/api/table', async (req, res, next) => {
     
-    try
-    {
-        pool.query(DROP_TABLE_SQL)
-        .then(() => {
-            res.send(`Table dropped`);
-        })
-        .catch((error) => {
-            res.send(error);
-        })
-        .finally(() => {
-            pool.end;
-        });
-    }
-    catch(err)
-    {
-        console.error(err.message);
-    }
+    pool.query(DROP_TABLE_SQL)
+    .then(() => {
+        res.send(`Table dropped`);
+    })
+    .catch((error) => {
+        res.send(error);
+    });
 });
 
 //////////////////////////////////////////////////////
