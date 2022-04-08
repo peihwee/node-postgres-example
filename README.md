@@ -20,15 +20,15 @@ npm start
 ```
 
 ## API
-* Create Table
-POST http://localhost:3000/api/table
+### Create Table
+* POST http://localhost:3000/api/table
 
-* Drop Table
-DELETE http://localhost:3000/api/table
+### Drop Table
+* DELETE http://localhost:3000/api/table
 
-* Insert Row
-POST http://localhost:3000/api/message
-JSON { "message" : "Any thing you want to say" }
+### Insert Row
+* POST http://localhost:3000/api/message
+* JSON { "message" : "Any thing you want to say" }
 
-* Select Rows
-GET http://localhost:3000/api/message
+### Select Rows
+* GET http://localhost:3000/api/message
